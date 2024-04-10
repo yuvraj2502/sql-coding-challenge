@@ -1,1 +1,6 @@
 # sql-coding-challenge
+
+# CODING CHALLENGE SUBMISSION
+
+## CRIME MANAGEMENT SYSTEM 
+Date - 10-04-2024
