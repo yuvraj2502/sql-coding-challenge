@@ -191,6 +191,7 @@ UNION ALL
 select distinct s.name from suspect s
 	JOIN crime c ON c.crimeid = s.crimeid
     where c.incidenttype = 'robbery';
+
 /*
 John Doe
 Robber 1
@@ -268,15 +269,6 @@ from crime c
 -- 18. List all cases where at least one incident is of type 'Homicide' and all other incidents are of type
 -- 'Robbery'.
 
-select c.crimeid
-from crime c
-where c.incidenttype = 'homicide'
-and not exists (
-    select *
-    from crime c1
-    where c1.crimeid = c.crimeid
-    and c1.incidenttype != 'robbery'
-);
 
 
 
