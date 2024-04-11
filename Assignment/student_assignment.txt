@@ -1,0 +1,554 @@
+show databases;
+/*
+use student_management_system;
+
+show tables;
+desc student;
+
+INSERT INTO student(first_name, last_name, date_of_birth, email, phone_number) 
+VALUES 
+('Rahul', 'Patel', '1998-05-15', 'rahul.patel@example.com', '+91234567890'),
+('Priya', 'Sharma', '2000-02-28', 'priya.sharma@example.com', '+91987654321'),
+('Aarav', 'Gupta', '1999-09-10', 'aarav.gupta@example.com', '+91122334455'),
+('Neha', 'Verma', '1997-11-20', 'neha.verma@example.com', '+91555666777'),
+('Ananya', 'Singh', '2001-04-03', 'ananya.singh@example.com', '+91444333222'),
+('Vishal', 'Yadav', '1996-08-07', 'vishal.yadav@example.com', '+91777888999'),
+('Swati', 'Kumar', '1998-12-12', 'swati.kumar@example.com', '+91888999000'),
+('Raj', 'Joshi', '2000-06-25', 'raj.joshi@example.com', '+91666777888'),
+('Pooja', 'Mehta', '1999-03-18', 'pooja.mehta@example.com', '+91999888777'),
+('Kiran', 'Chopra', '1997-10-30', 'kiran.chopra@example.com', '+91133444555');
+
+desc teacher;
+
+INSERT INTO teacher(first_name, last_name, email) 
+VALUES ('Rajesh', 'Kumar', 'rajesh.kumar@example.com'), 
+('Aarti', 'Sharma', 'aarti.sharma@example.com'), 
+('Nikhil', 'Gupta', 'nikhil.gupta@example.com'), 
+('Preeti', 'Singh', 'preeti.singh@example.com'), 
+('Manish', 'Verma', 'manish.verma@example.com'), 
+('Divya', 'Joshi', 'divya.joshi@example.com'), 
+('Nisha', 'Patel', 'nisha.patel@example.com'), 
+('Akash', 'Shah', 'akash.shah@example.com'), 
+('Sakshi', 'Malhotra', 'sakshi.malhotra@example.com'), 
+('Karan', 'Chopra', 'karan.chopra@example.com');
+
+
+desc course;
+
+INSERT INTO course (course_name, credits, teacher_id) VALUES 
+('Mathematics', '3', 1),
+('Physics', '4', 2),
+('Chemistry', '3', 3),
+('Biology', '3', 4),
+('Computer Science', '4', 5),
+('History', '3', 6),
+('Literature', '3', 7),
+('Economics', '3', 8),
+('Psychology', '3', 9),
+('Sociology', '3', 10);
+
+desc enrollment;
+
+INSERT INTO enrollment(student_id, course_id, enrollment_date) VALUES 
+(1, 1, '2024-04-10'),
+(2, 3, '2024-04-11'),
+(3, 5, '2024-04-12'),
+(4, 7, '2024-04-13'),
+(5, 9, '2024-04-14'),
+(6, 2, '2024-04-15'),
+(7, 4, '2024-04-16'),
+(8, 6, '2024-04-17'),
+(9, 8, '2024-04-18'),
+(10, 10, '2024-04-19');
+
+desc payment;
+
+INSERT INTO payment(student_id, amount, payment_date) VALUES 
+(1, 500, '2024-04-09'),
+(2, 700, '2024-04-10'),
+(3, 1000, '2024-04-11'),
+(4, 800, '2024-04-12'),
+(5, 1200, '2024-04-13'),
+(6, 900, '2024-04-14'),
+(7, 1500, '2024-04-15'),
+(8, 1100, '2024-04-16'),
+(9, 1300, '2024-04-17'),
+(10, 1800, '2024-04-18');
+
+
+*/
+
+
+use student_management_system;
+
+/*
+Task 1. Database Design:
+1. Create the database named "SISDB"
+2. Define the schema for the Students, Courses, Enrollments, Teacher, and Payments tables based on the provided schema. Write SQL scripts to create the mentioned tables with appropriate data types, constraints, and relationships.
+a. Students
+b. Courses
+c. Enrollments
+d. Teacher
+e. Payments
+3. Create an ERD (Entity Relationship Diagram) for the database.
+4. Create appropriate Primary Key and Foreign Key constraints for referential integrity.
+5. Insert at least 10 sample records into each of the following tables.
+i. Students
+ii. Courses
+iii. Enrollments
+iv. Teacher
+v. Payments
+
+*/
+
+-- ===============================================================================================================================================
+
+-- Tasks 2: Select, Where, Between, AND, LIKE:
+
+-- 1. Write an SQL query to insert a new student into the "Students" table with the following details:
+-- a. First Name: John
+-- b. Last Name: Doe
+-- c. Date of Birth: 1995-08-15
+-- d. Email: john.doe@example.com
+-- e. Phone Number: 1234567890
+
+insert into student(first_name,last_name,date_of_birth,email,phone_number)
+values 
+('John','Doe','1995-08-15','john.doe@example.com','1234567890');
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+-- 2. Write an SQL query to enroll a student in a course. Choose an existing student and course and insert a record into the "Enrollments" table with the enrollment date.
+
+insert into enrollment(student_id,course_id,enrollment_date) 
+values(11,2,'09-04-2023');
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+-- 3. Update the email address of a specific teacher in the "Teacher" table. Choose any teacher and modify their email address.
+
+update teacher 
+set email = 'p.singh@example.com' 
+where first_name = 'preeti';
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+-- 4. Write an SQL query to delete a specific enrollment record from the "Enrollments" table. Select an enrollment record based on the student and course.
+
+delete from enrollment 
+where student_id = 2 and course_id= 1;
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+-- 5. Update the "Courses" table to assign a specific teacher to a course. Choose any course and teacher from the respective tables.
+
+update course
+set teacher_id = 3
+where course_name = 'Biology';
+
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+-- 6. Delete a specific student from the "Students" table and remove all their enrollment records from the "Enrollments" table. Be sure to maintain referential integrity.
+
+delete from enrollment 
+where student_id = 2;
+
+delete from student
+where student_id = 2;
+
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+-- 7. Update the payment amount for a specific payment record in the "Payments" table. Choose any payment record and modify the payment amount.
+
+update payment 
+set amount = 1500 
+where payment_id = 1;
+
+
+-- ==========================================================================================================================================================
+
+-- Task 3. Aggregate functions, Having, Order By, GroupBy and Joins:
+
+-- 1. Write an SQL query to calculate the total payments made by a specific student. You will need to join the "Payments"
+-- table with the "Students" table based on the student's ID.
+
+select s.* , sum(amount) as Total_Payment
+from student s 
+	JOIN payment p ON p.student_id = s.student_id
+    group by s.student_id;
+
+/*
+1	Rahul	Patel	1998-05-15	rahul.patel@example.com	+91234567890	2700
+2	Priya	Sharma	2000-02-28	priya.sharma@example.com	+91987654321	700
+3	Aarav	Gupta	1999-09-10	aarav.gupta@example.com	+91122334455	1000
+4	Neha	Verma	1997-11-20	neha.verma@example.com	+91555666777	800
+6	Vishal	Yadav	1996-08-07	vishal.yadav@example.com	+91777888999	900
+7	Swati	Kumar	1998-12-12	swati.kumar@example.com	+91888999000	1500
+8	Raj	Joshi	2000-06-25	raj.joshi@example.com	+91666777888	1100
+9	Pooja	Mehta	1999-03-18	pooja.mehta@example.com	+91999888777	1300
+10	Kiran	Chopra	1997-10-30	kiran.chopra@example.com	+91133444555	1800 
+*/
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+-- 2. Write an SQL query to retrieve a list of courses along with the count of students enrolled in each course. 
+-- Use a JOIN operation between the "Courses" table and the "Enrollments" table.
+
+select c.course_name , count(e.enrollment_id) as total_enrolled 
+from course c
+	JOIN enrollment e ON e.course_id = c.course_id
+    group by c.course_id;
+    
+/*
+Mathematics	1
+Physics	2
+Chemistry	1
+Biology	1
+Computer Science	1
+History	1
+Literature	1
+Economics	1
+Psychology	1
+Sociology	1
+*/
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+-- 3. Write an SQL query to find the names of students who have not enrolled in any course. Use a LEFT JOIN between the "Students" 
+-- table and the "Enrollments" table to identify students without enrollments.
+select * 
+from student s
+	LEFT JOIN enrollment e ON e.student_id = s.student_id
+    where e.enrollment_id is null;
+
+
+/*
+	student_id	first_name	last_name	date_of_birth	email	phone_number	enrollment_id	student_id	course_id	enrollment_date
+	11	John	Doe	1995-08-15	john.doe@example.com	1234567890				
+*/
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+-- 4. Write an SQL query to retrieve the first name, last name of students, and the names of the courses they are enrolled in. 
+-- Use JOIN operations between the "Students" table and the "Enrollments" and "Courses" tables.alter
+
+select s.first_name,s.last_name,c.course_name 
+from student s
+	JOIN enrollment e ON s.student_id = e.student_id
+    JOIN course c ON c.course_id = e.student_id;
+
+/*
+Rahul	Patel	Mathematics
+Priya	Sharma	Physics
+Aarav	Gupta	Chemistry
+Neha	Verma	Biology
+Ananya	Singh	Computer Science
+Vishal	Yadav	History
+Swati	Kumar	Literature
+Raj	Joshi	Economics
+Pooja	Mehta	Psychology
+Kiran	Chopra	Sociology
+*/
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+-- 5. Create a query to list the names of teachers and the courses they are assigned to. Join the "Teacher" table with the "Courses" table.
+
+select t.first_name ,t.last_name, c.course_name
+from teacher t
+	JOIN course c ON c.teacher_id = t.teacher_id;
+
+/*
+Rajesh	Kumar	Mathematics
+Aarti	Sharma	Physics
+Nikhil	Gupta	Chemistry
+Nikhil	Gupta	Biology
+Manish	Verma	Computer Science
+Divya	Joshi	History
+Nisha	Patel	Literature
+Akash	Shah	Economics
+Sakshi	Malhotra	Psychology
+Karan	Chopra	Sociology
+*/
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+-- 6. Retrieve a list of students and their enrollment dates for a specific course. 
+-- You'll need to join the "Students" table with the "Enrollments" and "Courses" tables.
+
+select s.first_name , s.last_name , e.enrollment_date
+from student s
+	JOIN enrollment e ON e.student_id = s.student_id
+    JOIN course c ON c.course_id = e.course_id
+    where c.course_name = 'Chemistry';
+
+/*
+Priya	Sharma	2024-04-11
+*/
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+-- 7. Find the names of students who have not made any payments.
+--  Use a LEFT JOIN between the "Students" table and the "Payments" table and filter for students with NULL payment records.
+
+select s.*
+from student s
+	LEFT JOIN payment p ON p.student_id = s.student_id
+    where payment_id is NULL;
+    
+/*
+5	Ananya	Singh	2001-04-03	ananya.singh@example.com	+91444333222
+11	John	Doe	1995-08-15	john.doe@example.com	1234567890
+*/
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+-- 8. Write a query to identify courses that have no enrollments. You'll need to use a LEFT JOIN between the "Courses"
+--  table and the "Enrollments" table and filter for courses with NULL enrollment records.
+
+select c.*
+from course c
+	LEFT JOIN enrollment e ON e.course_id = c.course_id
+    where e.enrollment_id is null;
+
+/*
+7	Literature	3	7				
+*/
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+-- 9. Identify students who are enrolled in more than one course. Use a self-join on the "Enrollments" table to find students with multiple enrollment records.
+
+select *
+from student s
+	JOIN enrollment e ON e.student_id = s.student_id
+    JOIN course c ON c.course_id = e.course_id
+    group by s.student_id
+    having count(e.enrollment_id)>1;
+    
+    
+/*
+	student_id	first_name	last_name	date_of_birth	email	phone_number	enrollment_id	student_id	course_id	enrollment_date	course_id	course_name	credits	teacher_id
+	1	Rahul	Patel	1998-05-15	rahul.patel@example.com	+91234567890	1	1	1	2024-04-10	1	Mathematics	3	1
+*/
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+-- 10. Find teachers who are not assigned to any courses. Use a LEFT JOIN between the "Teacher" table and the "Courses" table and
+--  filter for teachers with NULL course assignments.
+
+select t.*
+from teacher t
+	LEFT JOIN course c ON t.teacher_id = c.teacher_id
+    where c.course_id is Null;
+    
+/*
+4	Preeti	Singh	p.singh@example.com
+*/
+
+
+
+-- =============================================================================================================================================
+-- Task 4. Subquery and its type:
+
+-- 1. Write an SQL query to calculate the average number of students enrolled in each
+-- course. Use aggregate functions and subqueries to achieve this.
+
+-- We want this course_name  avg(student_enrolled)
+select c.course_name , count(s.student_id)
+from student s
+	JOIN enrollment e ON e.student_id = s.student_id
+    JOIN course c ON c.course_id = e.course_id
+    group by c.course_id;
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+-- 2. Identify the student(s) who made the highest payment. Use a subquery to find the maximum payment 
+-- amount and then retrieve the student(s) associated with that amount.
+select s.* ,p.amount 
+from student s 
+	JOIN payment p ON s.student_id = p.student_id 
+	order by p.amount desc 
+	limit 1;
+
+/*
+10	Kiran	Chopra	1997-10-30	kiran.chopra@example.com	+91133444555	1800
+*/
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+-- 3. Retrieve a list of courses with the highest number of enrollments. Use subqueries to find the course(s) with the maximum enrollment count.
+select c.*,count(e.course_id) as 'num_of_enrollment' 
+from course c 
+	JOIN enrollment e ON c.course_id = e.course_id 
+	group by c.course_name 
+	order by num_of_enrollment desc ;
+/*
+3	Chemistry	3	3	2
+1	Mathematics	3	1	1
+2	Physics	4	2	1
+4	Biology	3	3	1
+5	Computer Science	4	5	1
+6	History	3	6	1
+8	Economics	3	8	1
+9	Psychology	3	9	1
+10	Sociology	3	10	1
+7	Literature	3	7	0
+*/
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- 4. Calculate the total payments made to courses taught by each teacher. Use subqueries to sum payments for each teacher's courses.
+select t.*,c.course_name,sum(p.amount) as'payments' 
+from payment p 
+	JOIN student s ON p.student_id = s.student_id 
+	JOIN enrollment e ON s.student_id = e.student_id 
+	JOIN course c ON e.course_id = c.course_id 
+	JOIN teacher t ON c.teacher_id = t.teacher_id 
+	group by t.teacher_id;
+
+/*
+1	Rajesh	Kumar	rajesh.kumar@example.com	Mathematics	2700
+2	Aarti	Sharma	aarti.sharma@example.com	Physics	900
+3	Nikhil	Gupta	nikhil.gupta@example.com	Chemistry	3000
+5	Manish	Verma	manish.verma@example.com	Computer Science	1000
+6	Divya	Joshi	divya.joshi@example.com	History	1100
+8	Akash	Shah	akash.shah@example.com	Economics	2700
+10	Karan	Chopra	karan.chopra@example.com	Sociology	1800
+*/
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- 5. Identify students who are enrolled in all available courses. Use subqueries to compare a student's enrollments with the total number of courses.
+select s.*
+from student s 
+	JOIN enrollment e ON s.student_id = e.student_id
+	JOIN course c on e.course_id = c.course_id
+	where c.course_name = all (select course_name from course);
+/*
+
+*/
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- 6. Retrieve the names of teachers who have not been assigned to any courses. Use subqueries to find teachers with no course assignments.
+select *
+from teacher
+where teacher_id NOT IN(select t.teacher_id
+						from course c 
+                        JOIN teacher t ON 
+                        c.teacher_id=t.teacher_id);
+/*
+4	Preeti	Singh	p.singh@example.com
+*/
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- 7. Calculate the average age of all students. Use subqueries to calculate the age of each student based on their date of birth.
+SELECT avg(TIMESTAMPDIFF(YEAR, date_of_birth, CURDATE())) AS average_age
+FROM student;
+/*
+25.0909
+*/
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+-- 8. Identify courses with no enrollments. Use subqueries to find courses without enrollment records.
+
+select *
+from course
+where course_id NOT IN (select c.course_id
+						from course c 
+                        JOIN enrollment e ON c.course_id=e.course_id);
+
+/*
+7	Literature	3	7
+*/
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- 9. Calculate the total payments made by each student for each course they are enrolled in. Use subqueries and aggregate functions to sum payments.
+
+select s.*, sum(p.amount) as total_payment
+from student s 
+	JOIN enrollment e ON s.student_id=e.student_id
+	JOIN course c ON c.course_id=e.course_id
+	JOIN payment p ON s.student_id=p.student_id
+	JOIN teacher t ON c.teacher_id=t.teacher_id
+	group by s.student_id;
+
+/*
+1	Rahul	Patel	1998-05-15	rahul.patel@example.com	+91234567890	5400
+2	Priya	Sharma	2000-02-28	priya.sharma@example.com	+91987654321	700
+3	Aarav	Gupta	1999-09-10	aarav.gupta@example.com	+91122334455	1000
+4	Neha	Verma	1997-11-20	neha.verma@example.com	+91555666777	800
+6	Vishal	Yadav	1996-08-07	vishal.yadav@example.com	+91777888999	900
+7	Swati	Kumar	1998-12-12	swati.kumar@example.com	+91888999000	1500
+8	Raj	Joshi	2000-06-25	raj.joshi@example.com	+91666777888	1100
+10	Kiran	Chopra	1997-10-30	kiran.chopra@example.com	+91133444555	1800
+*/
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- 10. Identify students who have made more than one payment. Use subqueries and aggregate functions to count payments per student and filter for 
+-- those with counts greater than one.
+
+select s.*
+from student s 
+	JOIN payment p ON s.student_id=p.student_id
+	group by s.student_id
+	having count(p.payment_id)>1;
+
+/*
+1	Rahul	Patel	1998-05-15	rahul.patel@example.com	+91234567890
+*/
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-- 11. Write an SQL query to calculate the total payments made by each student. Join the "Students" table with the "Payments" table and
+-- use GROUP BY to calculate the sum of payments for each student.
+
+select s.*, sum(p.amount) as 'total payment'
+from student s 
+	JOIN payment p ON s.student_id=p.student_id
+	group by s.student_id;
+
+/*
+1	Rahul	Patel	1998-05-15	rahul.patel@example.com	+91234567890	2700
+2	Priya	Sharma	2000-02-28	priya.sharma@example.com	+91987654321	700
+3	Aarav	Gupta	1999-09-10	aarav.gupta@example.com	+91122334455	1000
+4	Neha	Verma	1997-11-20	neha.verma@example.com	+91555666777	800
+6	Vishal	Yadav	1996-08-07	vishal.yadav@example.com	+91777888999	900
+7	Swati	Kumar	1998-12-12	swati.kumar@example.com	+91888999000	1500
+8	Raj	Joshi	2000-06-25	raj.joshi@example.com	+91666777888	1100
+9	Pooja	Mehta	1999-03-18	pooja.mehta@example.com	+91999888777	1300
+10	Kiran	Chopra	1997-10-30	kiran.chopra@example.com	+91133444555	1800
+*/
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- 12. Retrieve a list of course names along with the count of students enrolled in each course. Use
+-- JOIN operations between the "Courses" table and the "Enrollments" table and GROUP BY to
+-- count enrollments.
+
+select c.course_name, count(e.enrollment_id) as total_no_of_students
+from course c 
+	JOIN enrollment e ON c.course_id=e.course_id
+	group by c.course_id;
+/*
+Mathematics	1
+Physics	1
+Chemistry	2
+Biology	1
+Computer Science	1
+History	1
+Economics	1
+Psychology	1
+Sociology	1
+*/
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- 13. Calculate the average payment amount made by students. Use JOIN operations between the "Students" table and the "Payments" table and GROUP BY to calculate the average.
+
+select s.*, avg(p.amount) as average_amount
+from student s 
+	JOIN payment p ON s.student_id=p.student_id
+	group by s.student_id;
+
+/*
+1	Rahul	Patel	1998-05-15	rahul.patel@example.com	+91234567890	1350.0000
+2	Priya	Sharma	2000-02-28	priya.sharma@example.com	+91987654321	700.0000
+3	Aarav	Gupta	1999-09-10	aarav.gupta@example.com	+91122334455	1000.0000
+4	Neha	Verma	1997-11-20	neha.verma@example.com	+91555666777	800.0000
+6	Vishal	Yadav	1996-08-07	vishal.yadav@example.com	+91777888999	900.0000
+7	Swati	Kumar	1998-12-12	swati.kumar@example.com	+91888999000	1500.0000
+8	Raj	Joshi	2000-06-25	raj.joshi@example.com	+91666777888	1100.0000
+9	Pooja	Mehta	1999-03-18	pooja.mehta@example.com	+91999888777	1300.0000
+10	Kiran	Chopra	1997-10-30	kiran.chopra@example.com	+91133444555	1800.0000
+*/
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
