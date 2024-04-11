@@ -1,0 +1,609 @@
+-- Name - Yuvraj Verma
+
+show databases;
+use assignment_ticket;
+
+show tables;
+
+insert into venue(name, address) values
+
+('mumbai', 'marol andheri(w)'),
+
+('chennai', 'IT Park'),
+
+('pondicherry', 'state beach');
+
+
+insert into customer(name,email, phone_number)
+
+values
+
+('harry potter', 'harry@gmail.com', '45454545'),
+
+('ronald weasley', 'ron@gmail.com', '45454545'),
+
+('hermione granger', 'her@gmail.com', '45454545'),
+
+('draco malfoy', 'drac@gmail.com', '45454545'),
+
+('ginni weasley','ginni@gmail.com', '45454545');
+
+
+insert into
+event(name,date,time,total_seats,available_seats, ticket_price,event_type,venue_id)
+values
+('Late Ms. Lata Mangeshkar Musical', '2021-09-12','20:00',320,270,600, 'concert', 3),
+('CSK vs RCB', '2024-04-11', '19:30', 23000,3,3600, 'sports', 2),
+('CSK vs RR', '2024-04-19', '19:30', 23000,10,3400, 'sports', 2),
+('conference CUP', '2024-05-01', '15:30',28000,100,8000, 'sports', 1);
+
+insert into booking (event_id,customer_id,num_tickets,total_cost,booking_date) values
+(4,1,2,640,'2021-09-12'),
+(4,4,3,960,'2021-09-12'),
+(5,1,3,10800,'2024-04-11'),
+(5,3,5,18000,'2024-04-10'),
+(6,5,10,34000,'2024-04-15'),
+(7,2,4,32000,'2024-05-01');
+
+
+
+use assignment_ticket;
+
+/*
+Tasks 1: Database Design:
+1. Create the database named "TicketBookingSystem"
+2. Write SQL scripts to create the mentioned tables with appropriate data types, constraints, and relationships.
+Venu
+Event
+Customers
+Booking
+3. Create an ERD (Entity Relationship Diagram) for the database.
+4. Create appropriate Primary Key and Foreign Key constraints for referential integrity.
+
+-- TASK 1 COMPLETED
+
+-- =========================================================================================================================================
+
+Tasks 2: Select, Where, Between, AND, LIKE:
+
+*/
+-- 1. Write a SQL query to insert at least 10 sample records into each table.
+-- DONE
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- 2. Write a SQL query to list all Events.
+select * from event;
+
+/*
+4	Late Ms. Lata Mangeshkar Musical	2021-09-12	20:00:00	320	270	600	concert	3
+5	CSK vs RCB	2024-04-11	19:30:00	23000	3	3600	sports	2
+6	CSK vs RR	2024-04-19	19:30:00	23000	10	3400	sports	2
+7	conference CUP	2024-05-01	15:30:00	28000	100	8000	sports	1
+13	Concert with Shilpa Rao	2024-04-10	20:00:00	500	400	500	concert	1
+								
+*/
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-- 3. Write a SQL query to select events with available tickets.
+select name, available_seats from event;
+
+/*
+Late Ms. Lata Mangeshkar Musical	270
+CSK vs RCB	3
+CSK vs RR	10
+conference CUP	100
+Concert with Shilpa Rao	400
+*/
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- 4. Write a SQL query to select events name partial match with 'cup'.
+select name from event
+where name LIKE '%cup%';
+
+/*
+conference CUP
+*/
+
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- 5. Write a SQL query to select events with ticket price range is between 1000 to 2500.
+select name,ticket_price 
+from event
+where ticket_price between 500 AND 4000;
+
+
+/*
+Late Ms. Lata Mangeshkar Musical	600
+CSK vs RCB	3600
+CSK vs RR	3400
+Concert with Shilpa Rao	500
+*/
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-- 6. Write a SQL query to retrieve events with dates falling within a specific range.
+select name,date
+from event
+where date between '2024-1-1' AND '2024-5-1';
+
+/*
+CSK vs RCB	2024-04-11
+CSK vs RR	2024-04-19
+conference CUP	2024-05-01
+Concert with Shilpa Rao	2024-04-10
+*/
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-- 7. Write a SQL query to retrieve events with available tickets that also have "Concert" in their name.
+select name,available_seats
+from event 
+where name LIKE '%Concert%';
+
+/*
+Concert with Shilpa Rao	400
+*/
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-- 8. Write a SQL query to retrieve users in batches of 5, starting from the 6th user.
+
+select * from customer
+limit 5,5;
+
+/*
+6	severus snape	sev@gmail.com	56556
+*/
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+-- 9. Write a SQL query to retrieve bookings details contains booked no of ticket more than 4.
+select * from booking
+where num_tickets>4;
+
+/*
+39	5	3	5	18000	2024-04-10
+40	6	5	10	34000	2024-04-15
+					
+*/
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+-- 10. Write a SQL query to retrieve customer information whose phone number end with '000'
+select * from customer
+where phone_number LIKE '%4545';
+
+/*
+1	harry potter	harry@gmail.com	45454545
+2	ronald weasley	ron@gmail.com	45454545
+3	hermione granger	her@gmail.com	45454545
+4	draco malfoy	drac@gmail.com	45454545
+5	ginni weasley	ginni@gmail.com	45454545
+*/
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- 11. Write a SQL query to retrieve the events in order whose seat capacity more than 15000.
+select name,total_seats from event
+where total_seats>20000
+order by total_seats DESC;
+
+/*
+conference CUP	28000
+CSK vs RCB	23000
+CSK vs RR	23000
+*/
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+-- 12. Write a SQL query to select events name not start with 'x', 'y', 'z'
+select name
+from event
+where name not like 'x%' 'y%''%z' ;
+
+/*
+Late Ms. Lata Mangeshkar Musical
+CSK vs RCB
+CSK vs RR
+conference CUP
+Concert with Shilpa Rao
+*/
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------------------------------------------
+
+-- Tasks 3: Aggregate functions, Having, Order By, GroupBy and Joins:
+-- 1. Write a SQL query to List Events and Their Average Ticket Prices.
+select e.name, avg(b.total_cost) as average
+from event e, booking b
+where e.id=b.event_id
+group by b.event_id;
+
+/*
+Late Ms. Lata Mangeshkar Musical	800.0000
+CSK vs RCB	14400.0000
+CSK vs RR	34000.0000
+conference CUP	32000.0000
+*/
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-- 2. Write a SQL query to Calculate the Total Revenue Generated by Events.
+select e.name, sum(b.total_cost) as total_revenue
+from event e, booking b
+where e.id=b.event_id
+group by b.event_id;
+
+/*
+Late Ms. Lata Mangeshkar Musical	1600
+CSK vs RCB	28800
+CSK vs RR	34000
+conference CUP	32000
+*/
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+-- 3. Write a SQL query to find the event with the highest ticket sales.
+select e.name, sum(b.total_cost) as total_tickets_sold
+from event e, booking b
+where e.id=b.event_id
+group by b.event_id
+order by total_tickets_sold desc
+limit 1; 
+
+/*
+CSK vs RR	34000
+*/
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+-- 4. Write a SQL query to Calculate the Total Number of Tickets Sold for Each Event.
+select e.name, sum(b.num_tickets) as total_tickets
+from event e, booking b
+where e.id=b.event_id
+group by b.event_id;
+
+/*
+Late Ms. Lata Mangeshkar Musical	5
+CSK vs RCB	8
+CSK vs RR	10
+conference CUP	4
+*/
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+-- 5. Write a SQL query to Find Events with No Ticket Sales.
+select *
+from event
+where id NOT IN (select e.id
+from event e, booking b where e.id = b.event_id);
+
+/*
+13	Concert with Shilpa Rao	2024-04-10	20:00:00	500	400	500	concert	1
+*/
+
+
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- 6. Write a SQL query to Find the User Who Has Booked the Most Tickets.
+
+select c.name, sum(b.num_tickets) as total_tickets
+from event e, booking b, customer c
+where e.id=b.event_id AND b.customer_id=c.id
+group by c.id
+order by total_tickets DESC
+limit 1;
+
+/*
+ginni weasley	10
+*/
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+-- 7. Write a SQL query to List Events and the total number of tickets sold for each month.
+select b.event_id, e.name, MONTH(b.booking_date) as month, SUM(num_tickets) 
+from event e, booking b
+where e.id = b.event_id
+group by MONTH(b.booking_date);
+
+/*
+5	CSK vs RCB	4	18
+7	conference CUP	5	4
+4	Late Ms. Lata Mangeshkar Musical	9	5
+*/
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-- 8. Write a SQL query to calculate the average Ticket Price for Events in Each Venue.
+select v.name, avg(ticket_price) as average
+from event e, venue v
+where e.venue_id = v.id
+group by v.name;
+
+/*
+chennai	3500.0000
+mumbai	4250.0000
+pondicherry	600.0000
+*/
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+-- 9. Write a SQL query to calculate the total Number of Tickets Sold for Each Event Type.
+select  e.event_type, SUM(b.num_tickets) AS total_tickets
+from event e,booking b
+where e.id = b.event_id
+group by e.event_type;
+
+
+/*
+concert	5
+sports	22
+*/
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+-- 10. Write a SQL query to calculate the total Revenue Generated by Events in Each Year.
+select YEAR(b.booking_date) as year, SUM(total_cost) as total_revenue
+from event e, booking b
+where e.id = b.event_id
+group by YEAR(date);
+
+/*
+2021	1600
+2024	94800
+*/
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+-- 11. Write a SQL query to list users who have booked tickets for multiple events.
+select c.*
+from booking b, customer c
+where c.id = b.customer_id
+group by c.id
+having count(c.id) >1;
+
+/*
+1	harry potter	harry@gmail.com	45454545
+*/
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- 12. Write a SQL query to calculate the Total Revenue Generated by Events for Each User.
+select c.name, sum(b.total_cost) as Sum
+from event e, booking b, customer c
+where e.id=b.event_id AND b.customer_id=c.id
+group by b.customer_id;
+
+/*
+harry potter	11440
+ronald weasley	32000
+hermione granger	18000
+draco malfoy	960
+ginni weasley	34000
+*/
+
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- 13. Write a SQL query to calculate the Average Ticket Price for Events in Each Category and Venue.
+select e.event_type, avg(e.ticket_price) as Average_Price
+from venue v, event e, booking b
+where e.venue_id=v.id AND e.id=b.event_id
+group by event_type;
+
+/*
+concert	600.0000
+sports	4650.0000
+*/
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-- 14. 
+select e.event_type, v.name, AVG(e.ticket_price) from event e, venue v where e.venue_id=v.id group by e.event_type, v.name;
+
+/*
+concert	mumbai	500.0000
+concert	pondicherry	600.0000
+sports	chennai	3500.0000
+sports	mumbai	8000.0000
+*/
+
+-- -----------------------------------------------------------------------------------------------------------------
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-- Tasks 4: Subquery and its types
+
+-- 1. Calculate the Average Ticket Price for Events in Each Venue Using a Subquery.
+select
+v.name, AVG(e.ticket_price) as Average_Ticket_price 
+from venue v 
+	JOIN event e ON v.id=e.venue_id
+group by v.name;
+
+/*
+chennai	3500.0000
+mumbai	4250.0000
+pondicherry	600.0000
+*/
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-- 2. Find Events with More Than 50% of Tickets Sold using subquery.
+select *
+from event
+where (total_seats-available_seats) > (total_seats/2);
+
+/*
+5	CSK vs RCB	2024-04-11	19:30:00	23000	3	3600	sports	2
+6	CSK vs RR	2024-04-19	19:30:00	23000	10	3400	sports	2
+7	conference CUP	2024-05-01	15:30:00	28000	100	8000	sports	1
+								
+*/
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+-- 3. Calculate the Total Number of Tickets Sold for Each Event.
+select e.name, e.event_type,SUM(total_seats-available_seats) as Tickets_Sold
+from event e
+group by name;
+
+/*
+Concert with Shilpa Rao	concert	100
+conference CUP	sports	27900
+CSK vs RCB	sports	22997
+CSK vs RR	sports	22990
+Late Ms. Lata Mangeshkar Musical	concert	50
+*/
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+-- 4. Find Users Who Have Not Booked Any Tickets Using a NOT EXISTS Subquery.
+select * 
+from customer
+where id NOT IN(select customer_id from booking );
+
+/*
+6	severus snape	sev@gmail.com	56556
+*/
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+-- 5. List Events with No Ticket Sales Using a NOT IN Subquery.
+select * from event where id not in(select e.id from event e, booking b where e.id = b.event_id);
+
+
+/*
+13	Concert with Shilpa Rao	2024-04-10	20:00:00	500	400	500	concert
+*/
+
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- 6. Calculate the Total Number of Tickets Sold for Each Event Type Using a Subquery in the FROM Clause.
+select 	nd.name , SUM(nd.total_seats - available_seats)	as total_tickets_sold from (select * from event) as nd group by name;
+
+/*
+Concert with Shilpa Rao	100
+conference CUP	27900
+CSK vs RCB	22997
+CSK vs RR	22990
+Late Ms. Lata Mangeshkar Musical	50
+*/
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+-- 7. Find Events with Ticket Prices Higher Than the Average Ticket Price Using a Subquery in the WHERE Clause.
+select name from event where(select avg(ticket_price) as avg_price from event e) < ticket_price ;
+
+/*
+CSK vs RCB
+CSK vs RR
+conference CUP
+*/
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-- 8. Calculate the Total Revenue Generated by Events for Each User Using a Correlated Subquery.
+select c.name, sum(b.total_cost) as total
+from customer c JOIN booking b ON c.id=b.customer_id
+group by c.id; 
+
+/*
+harry potter	11440
+ronald weasley	32000
+hermione granger	18000
+draco malfoy	960
+ginni weasley	34000
+*/
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-- 9. List Users Who Have Booked Tickets for Events in a Given Venue Using a Subquery in the WHERE Clause.
+select name,email
+from customer 
+where id IN(select customer_id
+					 from booking
+                     where event_id IN(select event_id
+									   from event
+                                       where venue_id IN(select venue_id
+														  from venue
+                                                          where name='chennai')));
+
+/*
+harry potter	harry@gmail.com
+ronald weasley	ron@gmail.com
+hermione granger	her@gmail.com
+draco malfoy	drac@gmail.com
+ginni weasley	ginni@gmail.com
+*/
+
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-- 10. Calculate the Total Number of Tickets Sold for Each Event Category Using a Subquery with
+-- GROUP BY.
+
+select distinct e.event_type , SUM(total_seats-available_seats) as Tickets_Sold
+from event e 
+group by e.event_type;
+
+/*
+concert	150
+sports	73887
+*/
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-- 12. Calculate the Average Ticket Price for Events in Each Venue Using a Subquery
+
+select 
+v.name, AVG(e.ticket_price) as Average_Ticket_price 
+from venue v 
+	JOIN event e ON v.id=e.venue_id
+group by v.name;
+
+/*
+chennai	3500.0000
+mumbai	4250.0000
+pondicherry	600.0000
+*/
+
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
